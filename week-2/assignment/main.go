@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-type location struct {
+type Location struct {
 	city           string
 	temperature    int
 	description    string
@@ -21,19 +21,18 @@ func getCategories(temperature int) string {
 		return "panas"
 	} else if temperature > 18 {
 		return "hangat"
-	} else {
-		return "dingin"
 	}
+	return "dingin"
 }
 
-func ConvertTemperature(celsius int) (int, int) {
+func convertTemperature(celsius int) (int, int) {
 	fahrenheit := (celsius * 9 / 5) + 32
 	reamur := celsius * 4 / 5
 	return int(fahrenheit), int(reamur)
 }
 
-func getWeatherInfo(loc *location) {
-	loc.tempFahrenheit, loc.tempReamur = ConvertTemperature(loc.temperature)
+func getWeatherInfo(loc *Location) {
+	loc.tempFahrenheit, loc.tempReamur = convertTemperature(loc.temperature)
 	loc.description = getCategories(loc.temperature)
 
 	fmt.Printf("Suhu di %s adalah %s\n", loc.city, loc.description)
@@ -43,7 +42,7 @@ func getWeatherInfo(loc *location) {
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	var city location
+	var city Location
 
 	fmt.Println("--- Konverter Suhu ---")
 	fmt.Print("Masukkan lokasi pengukuran suhu: ")
